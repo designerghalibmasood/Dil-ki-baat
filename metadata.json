@@ -1,0 +1,6 @@
+{
+  "name": "Dil Ki Baat",
+  "description": "Your Private Voice Diary. Record your voice, express yourself offline, and save your memories with date and time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
