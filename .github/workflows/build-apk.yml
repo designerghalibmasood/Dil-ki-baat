@@ -2,7 +2,7 @@ name: Build APK
 
 on:
   push:
-  branches: [ main, master ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -35,4 +35,3 @@ jobs:
           name: dil-ki-baat-debug
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 7
-
