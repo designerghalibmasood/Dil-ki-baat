@@ -2,8 +2,7 @@ name: Build APK
 
 on:
   push:
-alias(libs.plugins.google.devtools.ksp)
-    branches: [ main, master ]
+  branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -36,4 +35,4 @@ jobs:
           name: dil-ki-baat-debug
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 7
-"ksp"(libs.androidx.room.compiler)
+
