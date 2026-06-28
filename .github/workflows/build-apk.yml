@@ -1,37 +1,77 @@
-name: Build APK
+plugins {
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.google.devtools.ksp)
+  alias(libs.plugins.secrets)
+}
 
-on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch:
+android {
+  namespace = "com.example"
+  compileSdk = 35
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  defaultConfig {
+    applicationId = "com.aistudio.voicediary.dyfhlr"
+    minSdk = 24
+    targetSdk = 35
+    versionCode = 1
+    versionName = "1.0"
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+  buildTypes {
+    release {
+      isMinifyEnabled = false
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+    }
+    debug {
+    }
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
+  buildFeatures {
+    compose = true
+    buildConfig = true
+  }
+}
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: '9.3.1'
+secrets {
+  propertiesFileName = ".env"
+  defaultPropertiesFileName = ".env.example"
+}
 
-      - name: Build Debug APK
-        run: gradle assembleDebug --stacktrace
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: dil-ki-baat-debug
-          path: app/build/outputs/apk/debug/*.apk
-          retention-days: 7
+dependencies {
+  implementation(platform(libs.androidx.compose.bom))
+  implementation(libs.accompanist.permissions)
+  implementation(libs.androidx.activity.compose)
+  implementation(libs.androidx.compose.material.icons.core)
+  implementation(libs.androidx.compose.material.icons.extended)
+  implementation(libs.androidx.compose.material3)
+  implementation(libs.androidx.compose.ui)
+  implementation(libs.androidx.compose.ui.graphics)
+  implementation(libs.androidx.compose.ui.tooling.preview)
+  implementation(libs.androidx.core.ktx)
+  implementation(libs.androidx.lifecycle.runtime.compose)
+  implementation(libs.androidx.lifecycle.runtime.ktx)
+  implementation(libs.androidx.lifecycle.viewmodel.compose)
+  implementation(libs.androidx.room.ktx)
+  implementation(libs.androidx.room.runtime)
+  implementation(libs.converter.moshi)
+  implementation(libs.kotlinx.coroutines.android)
+  implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.logging.interceptor)
+  implementation(libs.moshi.kotlin)
+  implementation(libs.okhttp)
+  implementation(libs.retrofit)
+  androidTestImplementation(platform(libs.androidx.compose.bom))
+  androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+  androidTestImplementation(libs.androidx.espresso.core)
+  androidTestImplementation(libs.androidx.junit)
+  androidTestImplementation(libs.androidx.runner)
+  debugImplementation(libs.androidx.compose.ui.test.manifest)
+  debugImplementation(libs.androidx.compose.ui.tooling)
+  "ksp"(libs.androidx.room.compiler)
+  "ksp"(libs.moshi.kotlin.codegen)
+}
