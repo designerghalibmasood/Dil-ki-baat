@@ -1,7 +1,8 @@
 name: Build APK
 
-on:
-  push:
+on:"ksp"(libs.androidx.room.compiler)
+"ksp"(libs.moshi.kotlin.codegen)
+  push:alias(libs.plugins.google.devtools.ksp)
     branches: [ main, master ]
   workflow_dispatch:
 
