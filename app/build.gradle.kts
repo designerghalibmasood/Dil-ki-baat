@@ -1,8 +1,9 @@
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
+  id("com.google.devtools.ksp") version "2.0.21-1.0.28"
   alias(libs.plugins.secrets)
-}alias(libs.plugins.google.devtools.ksp)
+}
 
 android {
   namespace = "com.example"
@@ -68,4 +69,6 @@ dependencies {
   androidTestImplementation(libs.androidx.runner)
   debugImplementation(libs.androidx.compose.ui.test.manifest)
   debugImplementation(libs.androidx.compose.ui.tooling)
-}"ksp"(libs.androidx.room.compiler)
+  ksp(libs.androidx.room.compiler)
+  ksp(libs.moshi.kotlin.codegen)
+}
